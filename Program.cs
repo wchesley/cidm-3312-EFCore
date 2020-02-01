@@ -6,6 +6,7 @@ namespace Homework_2
     {
         static void Main(string[] args)
         {
+                // Seed the database: 
                 // PatientsModel patient = new PatientsModel { fName = "Roxie", lName = "Hart", age = 34, Gender = 'F', AdmitDate = DateTime.Parse("5/28/1924"), HadExam = true };
                 // PatientsModel patient = new PatientsModel { fName = "Grace", lName = "Bertrand", age = 24, Gender = 'F', AdmitDate = DateTime.Parse("1/15/1939"), HadExam = true };
                 // PatientsModel patient2 = new PatientsModel { fName = "Harold", lName = "Hill", age = 52, Gender = 'M', AdmitDate = DateTime.Parse("7/1/1943"), HadExam = false };
@@ -14,8 +15,11 @@ namespace Homework_2
                 // crudObj.CreatePatient(patient);
                 // crudObj.CreatePatient(patient2);
                 // crudObj.CreatePatient(patient3);
+
+                //General patient Ojbect to work with: 
                 patient patientObj = new patient();
 
+            // REPL (Read, Evaluate, Print Loop): 
             do
             {
                 Console.WriteLine("Make a Selection:\n1. Create Patient\n2. List All Patients\n3. Find Patient\n4. Update Patient Info \n5. Delete Patient\n6. Exit");

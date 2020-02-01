@@ -4,8 +4,13 @@ namespace Homework_2
 {
     class patient
     {
+        //General crud layer object to work with
         crud crudObj = new crud();
-        public void createPatient()
+
+        ///<summary>
+        /// Takes user input to create new patient object.
+        ///</summary>
+        public void createPatient() 
         {
             PatientsModel patientToBe = new PatientsModel();
             Console.WriteLine("Enter Patient First name: ");
@@ -31,6 +36,8 @@ namespace Homework_2
             {
                 patientToBe.HadExam = false;
             }
+            //thought it'd be good practice to see the newly create patient object before saving it
+            //although there's no functionality to go back and edit it
             Console.WriteLine($"Here is the patient you've created: \n{patientToBe.fName} {patientToBe.lName} \nAge: {patientToBe.age} \nGender: {patientToBe.Gender} \nAdmitted:{patientToBe.AdmitDate.ToString()}\n Seen Doctor? {patientToBe.HadExam}");
             Console.WriteLine("Would you like to save it?");
             string resp = Console.ReadLine();
@@ -41,22 +48,39 @@ namespace Homework_2
                 db.CreatePatient(patientToBe);
             }
         }
-
+        ///<summary>
+        /// Wrapper method to list all patients.
+        ///</summary>
         public void getAllPatients()
         {
             crudObj.ReadAllPatients();
         }
 
+        ///<summary>
+        /// Takes user input for patient id, uses that id to find and return patient object
+        ///</summary>
         public PatientsModel findPatient()
         {
             Console.WriteLine("Enter Patient ID: ");
             string input = Console.ReadLine();
             int.TryParse(input, out int iD);
             var foundPatient = crudObj.ReadPatient(iD);
-            Console.WriteLine($"Found Patient:\nID: {foundPatient.PatientsModelID}\nName: {foundPatient.fName} {foundPatient.lName}\nAge: {foundPatient.age}\nAdmitDate: {foundPatient.AdmitDate.ToString()}\nHad Exam: {foundPatient.HadExam}");
-            return foundPatient;
+            if(foundPatient == null)
+            {
+                Console.WriteLine("No patient by that ID exists");
+                return null; 
+            }
+            else
+            {
+                Console.WriteLine($"Found Patient:\nID: {foundPatient.PatientsModelID}\nName: {foundPatient.fName} {foundPatient.lName}\nAge: {foundPatient.age}\nAdmitDate: {foundPatient.AdmitDate.ToString()}\nHad Exam: {foundPatient.HadExam}");
+                return foundPatient; 
+            }
         }
 
+        ///<summary>
+        /// Finds a patient using findPatient()
+        /// Then takes user input to update name, age and exam status
+        ///</summary>
         public void updatePatient()
         {
             var patient = findPatient();
@@ -110,6 +134,10 @@ namespace Homework_2
             }
         }
         
+        ///<summary>
+        /// Finds a patient using findPatient()
+        /// then deletes that patient. 
+        ///</summary>
         public void deletePatient()
         {
             var patient = findPatient();
